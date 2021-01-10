@@ -13,13 +13,19 @@
 - Create virtual environment within the project root folder
 
 ```sh
-virtualenv venv
+virtualenv -p python3 venv
 ```
 
 - Activate virtual environment
 
 ```sh
 source venv/bin/activate
+```
+
+- Install dependencies
+
+```sh
+pip install -r requirements.txt
 ```
 
 - Create the database
