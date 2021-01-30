@@ -1,0 +1,26 @@
+[
+{
+    "model": "pettify_crm.address",
+    "pk": 1,
+    "fields": {
+        "created": "2021-1-30T14:55:10Z",
+        "modified": "2021-1-30T14:55:10Z",
+        "address": "Road to nowhere",
+        "address2": "Number 42",
+        "district": "Levante",
+        "city": "Palma",
+        "postal_code": "07007",
+        "phone": "645328791"
+    }
+},
+{
+    "model": "pettify_crm.cat",
+    "pk": 1,
+    "fields": {
+        "status": "available",
+        "status_changed": "2021-1-30T14:55:10Z",
+        "is_removed": false,
+        "address": 1
+    }
+}
+]

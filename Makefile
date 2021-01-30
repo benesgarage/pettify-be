@@ -11,5 +11,8 @@ up: ## Start the development server
 	$(MANAGE) runserver localhost:8000
 
 db: ## Recreate the database
-	$(MANAGE) flush --noinput
+	$(MANAGE) reset_db --noinput
+	$(MANAGE) makemigrations pettify_crm
 	$(MANAGE) migrate
+	$(MANAGE) loaddata ./pettify_crm/fixtures/*.json
+
