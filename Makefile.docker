@@ -1,0 +1,44 @@
+# Pettify makefile
+
+WORKSPACE=/usr/src/app
+PY_EXEC=docker exec -it ${PY_CONTAINER}
+MANAGE=${PY_EXEC} python ${WORKSPACE}/manage.py
+PY_CONTAINER=pettify_be
+
+help: ## Display the help
+	@echo "Pettify backend makefile directives:\n"
+	@grep '\#\#' Makefile | sed -e 's/\#\#/->/g'
+	@echo ""
+
+up: ## Spin up the container in detached mode
+	docker-compose up -d
+
+down: ## Down the containers
+	docker-compose down
+
+server: ## Starts the builtin webserver. FIXME: Use uWSGI on startup instead.
+	${MANAGE} runserver 0.0.0.0:8000
+
+db: ## Recreate the database
+	${MANAGE} reset_db --noinput
+	${MANAGE} makemigrations pettify_crm
+	${MANAGE} migrate
+	${MANAGE} loaddata ./pettify_crm/fixtures/*.json
+
+freeze: ## Freeze current dependencies (with fix for debian-based distributions)
+	pip freeze | grep -v "pkg-resources" > requirements.txt
+
+## Utility targets
+
+py-shell: ## Login to a shell inside the python container
+	${PY_EXEC} /bin/sh
+
+log: ## show container logs
+	docker logs -f ${PY_CONTAINER}
+
+switch: down ## Switch to standalone makefile
+	ln -sfn Makefile.standalone Makefile
+	@echo "Using local environment for development deployment."
+
+configure: ## Configure deployment to work with docker
+	make -f Makefile.standalone switch

@@ -110,3 +110,6 @@ media/
 
 # Intellij
 /.idea
+
+# Switch between Makefiles
+/Makefile

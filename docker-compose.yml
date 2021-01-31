@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+
+  python:
+    container_name: pettify_be
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
